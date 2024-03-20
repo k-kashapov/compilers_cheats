@@ -30,20 +30,21 @@ def main():
         gr = gr.reverse()
         nodes.reverse()
 
+    print("\nFinding dominators...")
     dominators = find_dom(gr, nodes)
-    print()
 
-    print("Plotting your graph...")
+    print("\nPlotting your graph...")
     plot_graph(gr, 'neato')
 
+    print("\nFinding immediate dominators...")
     imm_dom = find_imm_dom(gr, nodes, dominators)
-    print()
 
+    print("\nPlotting dominator tree...")
     plot_dom_tree(nodes, imm_dom)
-    print()
 
+    print("\nFinding dominance frontiers...")
     dom_frs = find_df(gr, nodes, imm_dom)
-    print("Finished")
+    print("\nFinished")
     return
 
 def plot_graph(graph, prog):
@@ -76,8 +77,6 @@ def find_dom(gr, nodes):
 
 def find_imm_dom(gr, nodes, dominators):
     imm_dom = {nodes[0] : None}
-
-    print("Finding immediate_dominators:")
     for node in nodes:
         idom = None
         if len(dominators[node]) > 2:
@@ -99,8 +98,6 @@ def find_imm_dom(gr, nodes, dominators):
     return imm_dom
 
 def plot_dom_tree(nodes, imm_dom):
-    print("Plotting dominators tree...")
-
     dom_gr = nx.DiGraph()
     dom_gr.add_nodes_from(nodes[1:])
 
@@ -116,8 +113,6 @@ def plot_dom_tree(nodes, imm_dom):
     return
 
 def find_df(gr, nodes, imm_dom):
-    print("Finding dominance frontiers...")
-
     dom_frs = {nodes[0] : None}
 
     for node in nodes:
