@@ -1,17 +1,20 @@
 #! /bin/python3
+import importlib.util
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
 
+USE_GRAPHVIZ = True
+
 def main():
     # Amount of nodes excluding the Entry and Exit nodes
-    nodes_num = 10
+    NODES_NUM = 10
 
     # Reverse the graph before all steps
-    reverse = False
+    REVERSE = False
 
     nodes = ['Entry']
-    for i in range(1, nodes_num + 1):
+    for i in range(1, NODES_NUM + 1):
         nodes.append(f'B{i}')
     nodes.append('Exit')
 
@@ -26,7 +29,7 @@ def main():
     gr.add_nodes_from(nodes)
     gr.add_edges_from(edges)
 
-    if reverse:
+    if REVERSE:
         gr = gr.reverse()
         nodes.reverse()
 
@@ -48,8 +51,12 @@ def main():
     return
 
 def plot_graph(graph, prog):
-    pos = nx.nx_agraph.graphviz_layout(graph, prog=prog)
-    nx.draw(graph, pos, with_labels=True)
+    if USE_GRAPHVIZ:
+        pos = nx.nx_agraph.graphviz_layout(graph, prog=prog)
+        nx.draw(graph, pos, with_labels=True)
+    else:
+        print("WARNING: USE_GRAPHVIZ is False - pygraphviz not found. Not fatal, but graphs are ugly.")
+        nx.draw(graph, with_labels=True)
     plt.show()
     return
 
@@ -150,4 +157,7 @@ def find_df(gr, nodes, imm_dom):
     return dom_frs
 
 if __name__ == "__main__":
+    if (spec := importlib.util.find_spec("pygraphviz")) is None:
+        print("Cannot find pygraphviz!!!!! Defaulting to ugly graph plotting...")
+        USE_GRAPHVIZ = False
     main()
