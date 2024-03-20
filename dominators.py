@@ -4,15 +4,23 @@ import networkx as nx
 import numpy as np
 
 def main():
-    nodes_num = 5
-    reverse = 0
+    # Amount of nodes excluding the Entry and Exit nodes
+    nodes_num = 10
+
+    # Reverse the graph before all steps
+    reverse = False
 
     nodes = ['Entry']
     for i in range(1, nodes_num + 1):
         nodes.append(f'B{i}')
     nodes.append('Exit')
 
-    edges = [('Entry', 'B1'), ('B1', 'B2'), ('B2', 'B3'), ('B2', 'B4'), ('B4', 'B5'), ('B5', 'B2'), ('B3', 'B5'), ('B5', 'Exit')]
+    edges = [('Entry', 'B1'), ('B9', 'B1'), ('B1', 'B2'), \
+                ('B1', 'B3'), ('B2', 'B3'), ('B4', 'B3'), \
+                ('B8', 'B3'), ('B3', 'B4'), ('B7', 'B4'), \
+                ('B4', 'B5'), ('B4', 'B6'), ('B5', 'B7'), \
+                ('B6', 'B7'), ('B10', 'B7'), ('B7', 'B8'),\
+                ('B8', 'B9'), ('B8', 'B10'), ('B9', 'Exit'), ('B10', 'Exit')]
 
     gr = nx.DiGraph()
     gr.add_nodes_from(nodes)
@@ -24,7 +32,10 @@ def main():
 
     dominators = find_dom(gr, nodes)
     print()
-    
+
+    print("Plotting your graph...")
+    plot_graph(gr, 'neato')
+
     imm_dom = find_imm_dom(gr, nodes, dominators)
     print()
 
@@ -33,6 +44,12 @@ def main():
 
     dom_frs = find_df(gr, nodes, imm_dom)
     print("Finished")
+    return
+
+def plot_graph(graph, prog):
+    pos = nx.nx_agraph.graphviz_layout(graph, prog=prog)
+    nx.draw(graph, pos, with_labels=True)
+    plt.show()
     return
 
 def find_dom(gr, nodes):
@@ -60,7 +77,8 @@ def find_dom(gr, nodes):
 def find_imm_dom(gr, nodes, dominators):
     imm_dom = {nodes[0] : None}
 
-    for node in nodes[1:]:
+    print("Finding immediate_dominators:")
+    for node in nodes:
         idom = None
         if len(dominators[node]) > 2:
             shortest = 10000000
@@ -70,12 +88,14 @@ def find_imm_dom(gr, nodes, dominators):
                     if len(path) < shortest:
                         shortest = len(path)
                         idom = dom
-        print(f"Imm_dom({node}) = {idom}")
+        print(f"\tImm_dom({node}) = {idom}")
         imm_dom[node] = idom
 
-    print(f'soulless networkx library solution: {nx.immediate_dominators(gr, nodes[0])}')
-    nx.draw(gr, with_labels=True)
-    plt.show()
+    print(f'Soulless networkx library solution:')
+    nx_res = nx.immediate_dominators(gr, nodes[0])
+    for immd in nx_res:
+        print(f"\timm_dom[{immd}] = {nx_res[immd]}")
+
     return imm_dom
 
 def plot_dom_tree(nodes, imm_dom):
@@ -92,18 +112,18 @@ def plot_dom_tree(nodes, imm_dom):
     print(f"Dominator tree edges: {dom_edges}")
     dom_gr.add_edges_from(dom_edges)
 
-    nx.draw(dom_gr, with_labels=True)
-    plt.show()
+    plot_graph(dom_gr, 'dot')
+    return
 
 def find_df(gr, nodes, imm_dom):
     print("Finding dominance frontiers...")
 
     dom_frs = {nodes[0] : None}
 
-    for node in nodes[1:]:
+    for node in nodes:
         dom_frs[node] = None
 
-    for n in nodes[1:]:
+    for n in nodes:
         print(f"Processing node {node}:")
         preds = list(gr.predecessors(n))
         print(f"\tpreds({n}) = {preds}")
@@ -114,15 +134,23 @@ def find_df(gr, nodes, imm_dom):
                 r = p
                 while r != imm_dom[n]:
                     print(f"\t\tr = {r}")
-                    if dom_frs[r] == None:
+                    if type(dom_frs[r]) is type(None):
                         dom_frs[r] = [n]
                     else:
-                        dom_frs[r] = np.append(dom_frs[r], n)
+                        dom_frs[r] = np.unique(np.append(dom_frs[r], n))
                     print(f"\t\tdominance_frontiers[{r}] = {dom_frs[r]}")
                     r = imm_dom[r]
                 print(f"\t\t{r} = imm_dom[{n}]. Moving on...")
-    print("my DF solution:              ", dom_frs)
-    print("networkx library DF solution:", nx.dominance_frontiers(gr, nodes[0]))
+
+    dom_frs[nodes[0]] = None
+    print("my DF solution:")
+    for dom_fr in dom_frs:
+        print(f"\tdom_frs[{dom_fr}] = {dom_frs[dom_fr]}")
+
+    print("networkx library DF solution:")
+    nx_res = nx.dominance_frontiers(gr, nodes[0])
+    for dom_fr in nx_res:
+        print(f"\tdom_frs[{dom_fr}] = {nx_res[dom_fr]}")
 
     return dom_frs
 
