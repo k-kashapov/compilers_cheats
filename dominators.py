@@ -3,6 +3,7 @@ import importlib.util
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
+import sys
 
 USE_GRAPHVIZ = True
 
@@ -13,22 +14,12 @@ def main():
     # Reverse the graph before all steps
     REVERSE = False
 
-    nodes = ['Entry']
-    for i in range(1, NODES_NUM + 1):
-        nodes.append(f'B{i}')
-    nodes.append('Exit')
+    if len(sys.argv) <= 1 or 'help' in sys.argv[1].lower().strip():
+        print_help_and_exit() 
 
-    edges = [('Entry', 'B1'), ('B9', 'B1'), ('B1', 'B2'), \
-                ('B1', 'B3'), ('B2', 'B3'), ('B4', 'B3'), \
-                ('B8', 'B3'), ('B3', 'B4'), ('B7', 'B4'), \
-                ('B4', 'B5'), ('B4', 'B6'), ('B5', 'B7'), \
-                ('B6', 'B7'), ('B10', 'B7'), ('B7', 'B8'),\
-                ('B8', 'B9'), ('B8', 'B10'), ('B9', 'Exit'), ('B10', 'Exit')]
-
-    gr = nx.DiGraph()
-    gr.add_nodes_from(nodes)
-    gr.add_edges_from(edges)
-
+    gr = nx.read_adjlist(sys.argv[1], create_using=nx.DiGraph())
+    nodes = list(gr.nodes)
+    
     if REVERSE:
         gr = gr.reverse()
         nodes.reverse()
@@ -49,6 +40,19 @@ def main():
     dom_frs = find_df(gr, nodes, imm_dom)
     print("\nFinished")
     return
+
+def print_help_and_exit():
+    print(
+        "Provide path to file, containing graph as first argument.",
+        "File must contain graph's adjastency list and it's structure must be:",
+        "`a b c # source target target`",
+        "where `#` is comment separator.",
+        "You can check file's example in examples/cfg_example.adj",
+        "P.S. `entry` and `exit nodes should be named exactly like in the example`",
+        sep='\n'
+    )
+    
+    exit(0)
 
 def plot_graph(graph, prog):
     if USE_GRAPHVIZ:
