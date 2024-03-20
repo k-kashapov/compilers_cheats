@@ -1,0 +1,236 @@
+$ ./dominators.py
+Finding dominators...
+Processing B1:
+        Node predecessors = ['Entry', 'B9']
+        Predecessor Entry:
+                Intersecting ['Entry' 'B1' 'B2' 'B3' 'B4' 'B5' 'B6' 'B7' 'B8' 'B9' 'B10' 'Exit'] and ['Entry']
+        Predecessor B9:
+                Intersecting ['Entry'] and ['Entry', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10', 'Exit']
+        dominators[B1] = B1 U intersection = ['B1' 'Entry']
+Processing B2:
+        Node predecessors = ['B1']
+        Predecessor B1:
+                Intersecting ['Entry' 'B1' 'B2' 'B3' 'B4' 'B5' 'B6' 'B7' 'B8' 'B9' 'B10' 'Exit'] and ['B1' 'Entry']
+        dominators[B2] = B2 U intersection = ['B2' 'B1' 'Entry']
+Processing B3:
+        Node predecessors = ['B1', 'B2', 'B4', 'B8']
+        Predecessor B1:
+                Intersecting ['Entry' 'B1' 'B2' 'B3' 'B4' 'B5' 'B6' 'B7' 'B8' 'B9' 'B10' 'Exit'] and ['B1' 'Entry']
+        Predecessor B2:
+                Intersecting ['B1' 'Entry'] and ['B2' 'B1' 'Entry']
+        Predecessor B4:
+                Intersecting ['B1' 'Entry'] and ['Entry', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10', 'Exit']
+        Predecessor B8:
+                Intersecting ['B1' 'Entry'] and ['Entry', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10', 'Exit']
+        dominators[B3] = B3 U intersection = ['B3' 'B1' 'Entry']
+Processing B4:
+        Node predecessors = ['B3', 'B7']
+        Predecessor B3:
+                Intersecting ['Entry' 'B1' 'B2' 'B3' 'B4' 'B5' 'B6' 'B7' 'B8' 'B9' 'B10' 'Exit'] and ['B3' 'B1' 'Entry']
+        Predecessor B7:
+                Intersecting ['B1' 'B3' 'Entry'] and ['Entry', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10', 'Exit']
+        dominators[B4] = B4 U intersection = ['B4' 'B1' 'B3' 'Entry']
+Processing B5:
+        Node predecessors = ['B4']
+        Predecessor B4:
+                Intersecting ['Entry' 'B1' 'B2' 'B3' 'B4' 'B5' 'B6' 'B7' 'B8' 'B9' 'B10' 'Exit'] and ['B4' 'B1' 'B3' 'Entry']
+        dominators[B5] = B5 U intersection = ['B5' 'B1' 'B3' 'B4' 'Entry']
+Processing B6:
+        Node predecessors = ['B4']
+        Predecessor B4:
+                Intersecting ['Entry' 'B1' 'B2' 'B3' 'B4' 'B5' 'B6' 'B7' 'B8' 'B9' 'B10' 'Exit'] and ['B4' 'B1' 'B3' 'Entry']
+        dominators[B6] = B6 U intersection = ['B6' 'B1' 'B3' 'B4' 'Entry']
+Processing B7:
+        Node predecessors = ['B5', 'B6', 'B10']
+        Predecessor B5:
+                Intersecting ['Entry' 'B1' 'B2' 'B3' 'B4' 'B5' 'B6' 'B7' 'B8' 'B9' 'B10' 'Exit'] and ['B5' 'B1' 'B3' 'B4' 'Entry']
+        Predecessor B6:
+                Intersecting ['B1' 'B3' 'B4' 'B5' 'Entry'] and ['B6' 'B1' 'B3' 'B4' 'Entry']
+        Predecessor B10:
+                Intersecting ['B1' 'B3' 'B4' 'Entry'] and ['Entry', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10', 'Exit']
+        dominators[B7] = B7 U intersection = ['B7' 'B1' 'B3' 'B4' 'Entry']
+Processing B8:
+        Node predecessors = ['B7']
+        Predecessor B7:
+                Intersecting ['Entry' 'B1' 'B2' 'B3' 'B4' 'B5' 'B6' 'B7' 'B8' 'B9' 'B10' 'Exit'] and ['B7' 'B1' 'B3' 'B4' 'Entry']
+        dominators[B8] = B8 U intersection = ['B8' 'B1' 'B3' 'B4' 'B7' 'Entry']
+Processing B9:
+        Node predecessors = ['B8']
+        Predecessor B8:
+                Intersecting ['Entry' 'B1' 'B2' 'B3' 'B4' 'B5' 'B6' 'B7' 'B8' 'B9' 'B10' 'Exit'] and ['B8' 'B1' 'B3' 'B4' 'B7' 'Entry']
+        dominators[B9] = B9 U intersection = ['B9' 'B1' 'B3' 'B4' 'B7' 'B8' 'Entry']
+Processing B10:
+        Node predecessors = ['B8']
+        Predecessor B8:
+                Intersecting ['Entry' 'B1' 'B2' 'B3' 'B4' 'B5' 'B6' 'B7' 'B8' 'B9' 'B10' 'Exit'] and ['B8' 'B1' 'B3' 'B4' 'B7' 'Entry']
+        dominators[B10] = B10 U intersection = ['B10' 'B1' 'B3' 'B4' 'B7' 'B8' 'Entry']
+Processing Exit:
+        Node predecessors = ['B9', 'B10']
+        Predecessor B9:
+                Intersecting ['Entry' 'B1' 'B2' 'B3' 'B4' 'B5' 'B6' 'B7' 'B8' 'B9' 'B10' 'Exit'] and ['B9' 'B1' 'B3' 'B4' 'B7' 'B8' 'Entry']
+        Predecessor B10:
+                Intersecting ['B1' 'B3' 'B4' 'B7' 'B8' 'B9' 'Entry'] and ['B10' 'B1' 'B3' 'B4' 'B7' 'B8' 'Entry']
+        dominators[Exit] = Exit U intersection = ['Exit' 'B1' 'B3' 'B4' 'B7' 'B8' 'Entry']
+
+Plotting your graph...
+
+Finding immediate dominators...
+        Imm_dom(Entry) = None
+        Imm_dom(B1) = None
+        Imm_dom(B2) = B1
+        Imm_dom(B3) = B1
+        Imm_dom(B4) = B3
+        Imm_dom(B5) = B4
+        Imm_dom(B6) = B4
+        Imm_dom(B7) = B4
+        Imm_dom(B8) = B7
+        Imm_dom(B9) = B8
+        Imm_dom(B10) = B8
+        Imm_dom(Exit) = B8
+Soulless networkx library solution:
+        imm_dom[Entry] = Entry
+        imm_dom[B1] = Entry
+        imm_dom[B2] = B1
+        imm_dom[B3] = B1
+        imm_dom[B4] = B3
+        imm_dom[B6] = B4
+        imm_dom[B5] = B4
+        imm_dom[B7] = B4
+        imm_dom[B8] = B7
+        imm_dom[B10] = B8
+        imm_dom[B9] = B8
+        imm_dom[Exit] = B8
+
+Plotting dominator tree...
+Dominator tree edges: [('B1', 'B2'), ('B1', 'B3'), ('B3', 'B4'), ('B4', 'B5'), ('B4', 'B6'), ('B4', 'B7'), ('B7', 'B8'), ('B8', 'B9'), ('B8', 'B10'), ('B8', 'Exit')]
+
+Finding dominance frontiers...
+Processing node Exit:
+        preds(Entry) = []
+Processing node Exit:
+        preds(B1) = ['Entry', 'B9']
+        |Preds| > 1
+        Processing pred Entry:
+                r = Entry
+                dominance_frontiers[Entry] = ['B1']
+                None = imm_dom[B1]. Moving on...
+        Processing pred B9:
+                r = B9
+                dominance_frontiers[B9] = ['B1']
+                r = B8
+                dominance_frontiers[B8] = ['B1']
+                r = B7
+                dominance_frontiers[B7] = ['B1']
+                r = B4
+                dominance_frontiers[B4] = ['B1']
+                r = B3
+                dominance_frontiers[B3] = ['B1']
+                r = B1
+                dominance_frontiers[B1] = ['B1']
+                None = imm_dom[B1]. Moving on...
+Processing node Exit:
+        preds(B2) = ['B1']
+Processing node Exit:
+        preds(B3) = ['B1', 'B2', 'B4', 'B8']
+        |Preds| > 1
+        Processing pred B1:
+                B1 = imm_dom[B3]. Moving on...
+        Processing pred B2:
+                r = B2
+                dominance_frontiers[B2] = ['B3']
+                B1 = imm_dom[B3]. Moving on...
+        Processing pred B4:
+                r = B4
+                dominance_frontiers[B4] = ['B1' 'B3']
+                r = B3
+                dominance_frontiers[B3] = ['B1' 'B3']
+                B1 = imm_dom[B3]. Moving on...
+        Processing pred B8:
+                r = B8
+                dominance_frontiers[B8] = ['B1' 'B3']
+                r = B7
+                dominance_frontiers[B7] = ['B1' 'B3']
+                r = B4
+                dominance_frontiers[B4] = ['B1' 'B3']
+                r = B3
+                dominance_frontiers[B3] = ['B1' 'B3']
+                B1 = imm_dom[B3]. Moving on...
+Processing node Exit:
+        preds(B4) = ['B3', 'B7']
+        |Preds| > 1
+        Processing pred B3:
+                B3 = imm_dom[B4]. Moving on...
+        Processing pred B7:
+                r = B7
+                dominance_frontiers[B7] = ['B1' 'B3' 'B4']
+                r = B4
+                dominance_frontiers[B4] = ['B1' 'B3' 'B4']
+                B3 = imm_dom[B4]. Moving on...
+Processing node Exit:
+        preds(B5) = ['B4']
+Processing node Exit:
+        preds(B6) = ['B4']
+Processing node Exit:
+        preds(B7) = ['B5', 'B6', 'B10']
+        |Preds| > 1
+        Processing pred B5:
+                r = B5
+                dominance_frontiers[B5] = ['B7']
+                B4 = imm_dom[B7]. Moving on...
+        Processing pred B6:
+                r = B6
+                dominance_frontiers[B6] = ['B7']
+                B4 = imm_dom[B7]. Moving on...
+        Processing pred B10:
+                r = B10
+                dominance_frontiers[B10] = ['B7']
+                r = B8
+                dominance_frontiers[B8] = ['B1' 'B3' 'B7']
+                r = B7
+                dominance_frontiers[B7] = ['B1' 'B3' 'B4' 'B7']
+                B4 = imm_dom[B7]. Moving on...
+Processing node Exit:
+        preds(B8) = ['B7']
+Processing node Exit:
+        preds(B9) = ['B8']
+Processing node Exit:
+        preds(B10) = ['B8']
+Processing node Exit:
+        preds(Exit) = ['B9', 'B10']
+        |Preds| > 1
+        Processing pred B9:
+                r = B9
+                dominance_frontiers[B9] = ['B1' 'Exit']
+                B8 = imm_dom[Exit]. Moving on...
+        Processing pred B10:
+                r = B10
+                dominance_frontiers[B10] = ['B7' 'Exit']
+                B8 = imm_dom[Exit]. Moving on...
+my DF solution:
+        dom_frs[Entry] = None
+        dom_frs[B1] = ['B1']
+        dom_frs[B2] = ['B3']
+        dom_frs[B3] = ['B1' 'B3']
+        dom_frs[B4] = ['B1' 'B3' 'B4']
+        dom_frs[B5] = ['B7']
+        dom_frs[B6] = ['B7']
+        dom_frs[B7] = ['B1' 'B3' 'B4' 'B7']
+        dom_frs[B8] = ['B1' 'B3' 'B7']
+        dom_frs[B9] = ['B1' 'Exit']
+        dom_frs[B10] = ['B7' 'Exit']
+        dom_frs[Exit] = None
+networkx library DF solution:
+        dom_frs[Entry] = set()
+        dom_frs[B1] = {'B1'}
+        dom_frs[B2] = {'B3'}
+        dom_frs[B3] = {'B1', 'B3'}
+        dom_frs[B4] = {'B1', 'B4', 'B3'}
+        dom_frs[B6] = {'B7'}
+        dom_frs[B5] = {'B7'}
+        dom_frs[B7] = {'B1', 'B7', 'B4', 'B3'}
+        dom_frs[B8] = {'B1', 'B7', 'B3'}
+        dom_frs[B10] = {'Exit', 'B7'}
+        dom_frs[B9] = {'B1', 'Exit'}
+        dom_frs[Exit] = set()
+
+Finished
