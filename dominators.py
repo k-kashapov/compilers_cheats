@@ -65,21 +65,31 @@ def find_dom(gr, nodes):
     for node in nodes[1:]:
         dominators[node] = nodes
 
-    for node in nodes[1:]:
-        print(f"Processing {node}:")
-        preds = list(gr.predecessors(node))
-        print(f"\tNode predecessors = {preds}")
-        adding = np.copy(nodes)
+    changed = True
+    i = 0
 
-        for pred in preds:
-            print(f"\tPredecessor {pred}:")
-            print(f"\t\tIntersecting {adding} and {dominators[pred]}")
-            adding = np.intersect1d(adding, dominators[pred])
+    while changed:
+        changed = False
+        print(f"Starting iteration {i}..")
+        i += 1
+        for node in nodes[1:]:
+            print(f"Processing {node}:")
+            preds = list(gr.predecessors(node))
+            print(f"\tNode predecessors = {preds}")
+            adding = np.copy(nodes)
 
-        doms = np.append(node, adding)
+            for pred in preds:
+                print(f"\tPredecessor {pred}:")
+                print(f"\t\tIntersecting {adding} and {dominators[pred]}")
+                adding = np.intersect1d(adding, dominators[pred])
 
-        dominators[node] = doms
-        print(f"\tdominators[{node}] = {node} U intersection = {dominators[node]}")
+            doms = np.append(node, adding)
+            if not (np.array_equal(doms, dominators[node])) and not changed:
+                changed = True
+                print("\t\tdominators changed in this iteration")
+
+            dominators[node] = doms
+            print(f"\tdominators[{node}] = {node} U intersection = {dominators[node]}")
     return dominators
 
 def find_imm_dom(gr, nodes, dominators):
