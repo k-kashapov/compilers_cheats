@@ -6,6 +6,12 @@ import numpy as np
 
 USE_GRAPHVIZ = True
 
+# Usage:
+#   Set NODES_NUM in code = (Number of nodes excluding Entry and Exit)
+#   Set REVERSE in code = invert graph to get predominators
+#   Set edges in code
+#   ./dominators.py
+
 def main():
     # Amount of nodes excluding the Entry and Exit nodes
     NODES_NUM = 10
@@ -24,6 +30,11 @@ def main():
                 ('B4', 'B5'), ('B4', 'B6'), ('B5', 'B7'), \
                 ('B6', 'B7'), ('B10', 'B7'), ('B7', 'B8'),\
                 ('B8', 'B9'), ('B8', 'B10'), ('B9', 'Exit'), ('B10', 'Exit')]
+
+    # edges = [('Entry', 'B1'), ('B7', 'B1'), ('B1', 'B2'), \
+    #             ('B1', 'B3'), ('B3', 'B4'), ('B3', 'B5'), \
+    #             ('B4', 'B6'), ('B5', 'B6'), ('B6', 'B7'), \
+    #             ('B2', 'B7'), ('B7', 'Exit')]
 
     gr = nx.DiGraph()
     gr.add_nodes_from(nodes)
@@ -136,7 +147,7 @@ def find_df(gr, nodes, imm_dom):
         dom_frs[node] = None
 
     for n in nodes:
-        print(f"Processing node {node}:")
+        print(f"Processing node {n}:")
         preds = list(gr.predecessors(n))
         print(f"\tpreds({n}) = {preds}")
         if (len(preds) > 1):
